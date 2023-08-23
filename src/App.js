@@ -1,16 +1,15 @@
 import { useState } from 'react';
 import Banner from './componentes/Banner';
 import Formulario from './componentes/Formulario';
-import Time from './componentes/TIme';
-
-
+import Time from './componentes/Time';
 
 function App() {
-  const times = [ //ao inves de string uma lista de times.
+
+  const times = [
     {
       nome: 'Programação',
-      corPrimaria: '#57c278',
-      corSecundaria: '#d9f7e9'
+      corPrimaria: '#57C278',
+      corSecundaria: '#D9F7E9'
     },
     {
       nome: 'Front-End',
@@ -38,24 +37,32 @@ function App() {
       corSecundaria: '#FFF5D9'
     },
     {
-      nome:  'Inovação e Gestão',
+      nome: 'Inovação e Gestão',
       corPrimaria: '#FF8A29',
       corSecundaria: '#FFEEDF'
     }
   ]
+
   const [colaboradores, setColaboradores] = useState([])
 
   const aoNovoColaboradorAdicionado = (colaborador) => {
     console.log(colaborador)
     setColaboradores([...colaboradores, colaborador])
   }
-  // nome da props = {valor que atribui}    resulta:  props.NOMEDAPROPS
+
   return (
     <div className="App">
       <Banner />
       <Formulario times={times.map(time => time.nome)} aoColaboradorCadastrado={colaborador => aoNovoColaboradorAdicionado(colaborador)}/>
-      {times.map(time => <Time key={time.nome} nome={time.nome} corPrimaria={time.corPrimaria} corSecundaria={time.corSecundaria}/>)}
-      
+
+      {times.map(time => <Time 
+        key={time.nome} 
+        nome={time.nome} 
+        corPrimaria={time.corPrimaria} 
+        corSecundaria={time.corSecundaria} 
+        colaboradores={colaboradores.filter(colaborador => colaborador.time === time.nome)}
+      />)}   
+
     </div>
   );
 }
